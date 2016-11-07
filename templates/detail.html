@@ -1,0 +1,44 @@
+<!--
+This is an example of getting the converted html from the markdown.
+-->
+
+{% extends "base.html" %}
+
+{% block title %}{{ entry.title }}{% endblock %}
+
+{% block content_title %}{{ entry.title }}{% endblock %}
+
+{% block extra_header %}
+    {% if session.logged_in %}
+        <li><a href="{{ url_for('edit', slug=entry.slug) }}">Edit entry</a></li>
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    <p>Created {{ entry.timestamp.strftime('%m/%d/%Y at %I:%M%p') }}</p>
+    {{ entry.html_content }}
+
+    {% for comment in entry.comments %}
+
+    <div class="comment"
+        <p>{{comment.html_content }}</p>
+        <p><a href="{{ ''.join(['http://', comment.website]) }}">{{ comment.name }}</a> at {{ comment.timestamp.strftime('%I:%M%p on %m/%d/%Y') }}</p>
+    </div>
+    {% endfor %}
+
+<div>
+    <form method="post" action="{{ url_for('detail', slug=entry.slug)}}">
+        <div class="form-group">
+                <label for="content" class="col-sm-2 control-label">add a comment</label>
+                <input class="form-control" id="name" name="name" type="text">
+                <input type="text" class="form-control" id="website" placeholder="website" name="website">
+                <input type="email" class="form-control" id="email" placeholder="email"required name="email">
+
+            <div>
+                <textarea class="form-control" id="content" name="content" placeholder="type your comment here" style="height: 150px;"></textarea>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+{% endblock %}

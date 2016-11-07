@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}Bendauer.com{% endblock %}
+
+{% block content %}
+<h1>
+  <a id="blog-title" href="{{ url_for('detail', slug=entry.slug) }}">
+    {{ entry.title }}
+  </a>
+  </h1>
+  <p id="blog-timestamp"> {{ entry.timestamp.strftime('%m/%d/%Y at %I:%M%p') }}</p>
+
+<div>{{ entry.html_content }}
+</div>
+
+{% endblock %}
