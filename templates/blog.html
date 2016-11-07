@@ -11,15 +11,16 @@
     {% endif %}
 
     <h1>
-      <a href="{% if entry.published %}{{ url_for('detail', slug=entry.slug) }}{% else %}{{ url_for('edit', slug=entry.slug) }}{% endif %}">
+      <a id="blog-title" href="{% if entry.published %}{{ url_for('detail', slug=entry.slug) }}{% else %}{{ url_for('edit', slug=entry.slug) }}{% endif %}">
         {{ entry.title }}
       </a>
   </h1>
+   <br />
     <div class="blog-entry">{{ entry.html_content }}
     </div>
-    <p>Created {{ entry.timestamp.strftime('%m/%d/%Y at %I:%M%p') }}</p>
+    <p id="timestamp">{{ entry.timestamp.strftime('%m/%d/%Y at %I:%M%p') }}</p>
   {% else %}
-    <p>No entries have been created yet.</p>
+    <p>i couldn't find anything :-( </p>
   {% endfor %}
   {% include "includes/pagination.html" %}
 {% endblock %}

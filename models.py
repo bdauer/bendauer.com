@@ -125,7 +125,7 @@ class Comment(BaseModel):
     entry = ForeignKeyField(Entry, related_name = 'comments')
 
     class Meta:
-        order_by =('-timestamp',)
+        order_by =('timestamp',)
 
     @property
     def html_content(self):

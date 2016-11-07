@@ -15,14 +15,30 @@ This is an example of getting the converted html from the markdown.
 {% endblock %}
 
 {% block content %}
-    <p>Created {{ entry.timestamp.strftime('%m/%d/%Y at %I:%M%p') }}</p>
-    {{ entry.html_content }}
+<h1>
+  <a id="blog-title"  href="{{ url_for('detail', slug=entry.slug) }}">
+    {{ entry.title }}
+  </a>
+  </h1>
+  <br />
+<div class="blog-entry">{{ entry.html_content }}
+<br />
+
+<p id="timestamp"><a href ="http://www.bendauer.com"><span class="commenter">Ben</span></a> at {{ entry.timestamp.strftime('%m/%d/%Y at %I:%M%p') }}</p>
+</div>
+<br />
+<hr>
+<br />
+
 
     {% for comment in entry.comments %}
-
     <div class="comment"
         <p>{{comment.html_content }}</p>
-        <p><a href="{{ ''.join(['http://', comment.website]) }}">{{ comment.name }}</a> at {{ comment.timestamp.strftime('%I:%M%p on %m/%d/%Y') }}</p>
+        {% if comment.website %}
+            <p id="timestamp"><a href="{{ ''.join(['http://', comment.website]) }}"><span class="commenter">{{ comment.name }}</span></a> at {{ comment.timestamp.strftime('%I:%M%p on %m/%d/%Y') }}</p>
+            {% else %}
+            <p id="timestamp"><span class="commenter">{{ comment.name }}</span></a> at {{ comment.timestamp.strftime('%I:%M%p on %m/%d/%Y') }}</p>
+            {% endif %}
     </div>
     {% endfor %}
 
@@ -30,12 +46,12 @@ This is an example of getting the converted html from the markdown.
     <form method="post" action="{{ url_for('detail', slug=entry.slug)}}">
         <div class="form-group">
                 <label for="content" class="col-sm-2 control-label">add a comment</label>
-                <input class="form-control" id="name" name="name" type="text">
+                <input class="form-control" id="name" name="name" type="text" placeholder="name" required>
                 <input type="text" class="form-control" id="website" placeholder="website" name="website">
-                <input type="email" class="form-control" id="email" placeholder="email"required name="email">
+                <input type="email" class="form-control" id="email" placeholder="email" name="email" required>
 
             <div>
-                <textarea class="form-control" id="content" name="content" placeholder="type your comment here" style="height: 150px;"></textarea>
+                <textarea class="form-control" id="content" name="content" placeholder="type your comment here" style="height: 150px;" required></textarea>
             </div>
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>

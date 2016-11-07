@@ -32,6 +32,7 @@ h2 {
 p {
     font-size: 12px;
     text-indent: 10px;
+    text-align: justify;
 }
 
 h1#main-header {
@@ -75,9 +76,6 @@ div#nav ul li a {
     font-weight: bold;
 }
 
-div#nav form {
-
-}
 hr#line-under-navbar {
     width: 60%;
 
@@ -103,23 +101,70 @@ div#left-sidebar li {
 
 a#blog-title {
     text-decoration: none;
-    color: black;
+    font-size: 20px;
+    font-weight: bolder;
     margin-bottom: none;
+
 }
-p#blog-timestamp {
+p#timestamp {
     font-size: 10px;
     padding: none;
     margin: none;
     text-align: right;
+    font-style: italic;
 }
 .blog-entry {
-    border-bottom-style: solid;
-    border-bottom-width: thin;
-
+    /*border-bottom-style: solid;
+    border-bottom-width: thin;*/
+    background-color: #EEE;
+    padding: 15px 25px 15px 25px;
+    border-radius: 5px;
+    margin: 5px;
+}
+.comment {
+        padding: 5px;
+        border-radius: 5px;
+        margin: 5px;
+}
+.comment:nth-child(even) {
+    background-color: #EEE;
+}
+.comment:nth-child(odd) {
+    background-color: #DDD;
 }
 
+.comment>h1 {
+    font-size: 12px;
+}
+.comment>h2 {
+    font-size: 12px;
+}
+.comment>h3 {
+    font-size: 12px;
+}
+.comment>h4 {
+    font-size: 12px;
+}
+.comment>p {
+    font-size: 12px;
+}
+.comment>li {
+    font-size: 12px;
+}
+.comment>a {
+    font-size: 12px;
+}
+.comment>pre {
+    font-size: 12px;
+}
 
-.alert {
+span.commenter {
+    font-size: 12px;
+    font-weight: bold;
+    font-style: normal;
+}
+
+/*.alert {
     color:#555;
 border-radius:10px;
 font-family:Tahoma,Geneva,Arial,sans-serif;font-size:11px;
@@ -146,4 +191,4 @@ margin:10px;
 .alert-notice {
     background:#e3f7fc no-repeat 10px 50%;
     border:1px solid #8ed9f6;
-}
+}*/

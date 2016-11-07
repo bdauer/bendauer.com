@@ -8,9 +8,11 @@
     {{ entry.title }}
   </a>
   </h1>
-  <p id="blog-timestamp"> {{ entry.timestamp.strftime('%m/%d/%Y at %I:%M%p') }}</p>
+  <br />
+<div class="blog-entry">{{ entry.html_content }}</div>
 
-<div>{{ entry.html_content }}
-</div>
+
+<p id="timestamp">{{ entry.timestamp.strftime('%m/%d/%Y at %I:%M%p') }}</p>
+
 
 {% endblock %}
