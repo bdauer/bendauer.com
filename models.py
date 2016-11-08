@@ -9,7 +9,7 @@ import re
 from flask import Markup
 from peewee import *
 from markdown import markdown
-from micawber import bootstrap_basic, parse_html
+from micawber import parse_html
 from markdown.extensions.extra import ExtraExtension
 from markdown.extensions.codehilite import CodeHiliteExtension
 from playhouse.sqlite_ext import * #full text search
@@ -26,9 +26,6 @@ class BaseModel(db.Model):
 
         database = database
 
-
-
-# put this all in the models file. Eventually models folder for website.
 class Entry(BaseModel):
     title = CharField()
     slug = CharField(unique=True)

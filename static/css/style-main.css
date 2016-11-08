@@ -122,7 +122,7 @@ p#timestamp {
     margin: 5px;
 }
 .comment {
-        padding: 5px;
+        padding: 10px;
         border-radius: 5px;
         margin: 5px;
 }
@@ -157,11 +157,43 @@ p#timestamp {
 .comment>pre {
     font-size: 12px;
 }
-
+.comment>blockquote {
+    font-size: 12px;
+}
 span.commenter {
     font-size: 12px;
     font-weight: bold;
     font-style: normal;
+}
+
+#comment-submission-form {
+    background-color: #CCC;
+    padding: 10px;
+    border-radius: 5px;
+    margin: 5px;
+}
+
+#comment-submission-form input {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+
+    border: thin solid black;
+    border-radius: 2px;
+
+}
+
+#submitted-comment-content {
+    width: 90%;
+    height: 10%;
+    display: block;
+    border-radius: 5px;
+    border: thin solid black;
+    resize: none;
+    padding: 5px;
+    margin: 5px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 /*.alert {
