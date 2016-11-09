@@ -73,7 +73,8 @@ def blog():
     return object_list('blog.html',
                        query,
                        search=search_query,
-                       check_bounds=False)
+                       check_bounds=False,
+                       paginate_by=10)
 
 def _create_or_edit(entry, template):
     if request.method == 'POST':
@@ -163,4 +164,4 @@ def clean_querystring(request_args, *keys_to_remove, **new_values):
 
 @app.errorhandler(404)
 def not_found(exc):
-    return Response('<h3>Not found</h3>'), 404
+    return Response("<h3>Someday I'll have a better 404 error.</h3>"), 404

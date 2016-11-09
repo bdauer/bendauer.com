@@ -2,7 +2,7 @@
 
 {% block title %}Blog entries{% endblock %}
 
-{% block content_title %}{% if search %}search "{{ search }}"{% endif %}{% endblock %}
+{% block content_title %}{% if search %}<h1>results for "{{ search }}"</h1><br /><hr><br />{% endif %}{% endblock %}
 
 {% block content %}
   {% for entry in object_list %}
@@ -26,7 +26,7 @@
     <hr>
     <br />
   {% else %}
-    <p>i couldn't find anything :-( </p>
+    <h3>i couldn't find anything :-( </h3>
   {% endfor %}
   {% include "includes/pagination.html" %}
 {% endblock %}
