@@ -30,14 +30,15 @@
     {% for comment in entry.comments %}
     <a name="comments"></a>
     <div class="comment">
+        {% if session.logged_in %}
+            <a href="{{ url_for('delete_comment', slug=entry.slug, comment_id=comment.id) }}">Delete</a>
+            {% endif %}
         <p>{{comment.html_content }}</p>
         {% if comment.website %}
             <p id="timestamp"><a href="{{ ''.join(['http://', comment.website]) }}"><span class="commenter">{{ comment.name }}</span></a> at {{ comment.timestamp.strftime('%I:%M%p on %m/%d/%Y') }}</p>
             {% else %}
             <p id="timestamp"><span class="commenter">{{ comment.name }}</span></a> at {{ comment.timestamp.strftime('%I:%M%p on %m/%d/%Y') }}</p>
             {% endif %}
-            here is an id
-            {{ comment.id }}
     </div>
     {% endfor %}
 

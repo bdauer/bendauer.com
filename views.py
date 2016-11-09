@@ -19,7 +19,6 @@ def login_required(fn):
         return redirect(url_for('login', next=request.path))
     return inner
 
-
 @app.route('/login/', methods=['GET', 'POST'])
 def login():
     next_url = request.args.get('next') or request.form.get('next')
@@ -115,7 +114,6 @@ def drafts():
 # create/drafts comes first so that it's not read as a slug
 @app.route('/blog/<slug>/', methods=['GET', 'POST'])
 def detail(slug):
-
     if session.get('logged_in'):
         query = Entry.select()
     else:
@@ -124,21 +122,14 @@ def detail(slug):
     comments = entry.comments
     comment = Comment(name='', content='', entry=entry)
 
-
     if request.method == 'GET':
-        return render_template('detail.html', entry=entry, comments=comments, comment=comment)
+        return render_template('detail.html', entry=entry, comments=comments)
 
     if request.method == 'POST':
         comment.name = request.form.get('name') or ''
         comment.website = request.form.get('website') or ''
         comment.email = request.form.get('email') or ''
         comment.content = request.form.get('content') or ''
-
-        # comment = Comment(name=request.form.get('name') or '',
-        #         website=request.form.get('website') or '',
-        #         email=request.form.get('email') or '',
-        #         content=request.form.get('content') or '',
-        #         entry=entry)
 
         if not (comment.name and comment.email and comment.content):
             flash('name, email and comment are required.', 'danger')
@@ -149,37 +140,12 @@ def detail(slug):
             return redirect(url_for('detail', slug=entry.slug))
         return render_template('detail.html', entry=entry, comments=comments)
 
-
-@app.route('/blog<slug>/<id>', methods=['GET', 'POST'])
-def draft(slug, id, entry, comment): # the primary key for the comment is comment.id
-
-    if request.method == 'GET':
-        return render_template('detail.html', entry=entry, comment=comment)
-
-    if request.method == 'POST':
-        comment.name = request.form.get('name') or ''
-        comment.website = request.form.get('website') or ''
-        comment.email = request.form.get('email') or ''
-        comment.content = request.form.get('content') or ''
-
-
-        # comment = Comment(name=request.form.get('name') or '',
-        #         website=request.form.get('website') or '',
-        #         email=request.form.get('email') or '',
-        #         content=request.form.get('content') or '',
-        #         entry=entry)
-
-        if not (comment.name and comment.email and comment.content):
-            flash('name, email and comment are required.', 'danger')
-        else:
-
-            with database.atomic():
-                comment.save()
-            flash('comment saved successfully.', 'success')
-
-            return redirect(url_for('detail', slug=entry.slug))
-        return render_template('detail.html', entry=entry, comment=comment, show_preview=True)
-        # return render_template('detail.html', entry=entry, comment=comment)
+@login_required
+@app.route('/blog/<slug>/<comment_id>/del')
+def delete_comment(slug, comment_id):
+    comment = Comment.get(Comment.id == comment_id)
+    comment.delete_instance()
+    return redirect(url_for('detail', slug=slug)+'#comments')
 
 @app.route('/blog/<slug>/edit/', methods=['GET', 'POST'])
 @login_required
