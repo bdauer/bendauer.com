@@ -131,14 +131,14 @@ def detail(slug):
         comment.email = request.form.get('email') or ''
         comment.content = request.form.get('content') or ''
 
-        if not (comment.name and comment.email and comment.content):
-            flash('name, email and comment are required.', 'danger')
-        else:
-            with database.atomic():
-                comment.save()
-            flash('comment saved successfully.', 'success')
-            return redirect(url_for('detail', slug=entry.slug))
-        return render_template('detail.html', entry=entry, comments=comments)
+        # if not (comment.name and comment.email and comment.content):
+            # flash('name, email and comment are required.', 'danger')
+        # else:
+        with database.atomic():
+            comment.save()
+            # flash('comment saved successfully.', 'success')
+        return redirect(url_for('detail', slug=entry.slug))
+        # return render_template('detail.html', entry=entry, comments=comments)
 
 @login_required
 @app.route('/blog/<slug>/<comment_id>/del')
