@@ -36,6 +36,8 @@
             {% else %}
             <p id="timestamp"><span class="commenter">{{ comment.name }}</span></a> at {{ comment.timestamp.strftime('%I:%M%p on %m/%d/%Y') }}</p>
             {% endif %}
+            here is an id
+            {{ comment.id }}
     </div>
     {% endfor %}
 

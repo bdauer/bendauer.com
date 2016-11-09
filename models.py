@@ -39,33 +39,26 @@ class Entry(BaseModel):
         Generate HTML version of markdown-formatted blog entry
         and convert media URLS into embedded players/images.
         """
-        hilite = CodeHiliteExtension(linenums=False, css_class='highlight')
-        extras = ExtraExtension()
-        markdown_content = markdown(self.content, extensions=[hilite, extras])
-        oembed_content = parse_html(
-            markdown_content,
-            oembed_providers,
-            urlize_all=True,
-            maxwidth=app.config['SITE_WIDTH'])
-        return Markup(oembed_content)
-
+        return self._markdown_to_html(self.content)
 
     @property
     def sliced_html_content(self):
         """
         Same at html_content, but provides only the first several words.
         """
-        abridged_content = " ".join(self.content.split(" ")[0:75])
+        abridged_content = " ".join(self.content.split(" ")[0:50])
+        return self._markdown_to_html(abridged_content)
+
+    def _markdown_to_html(self, content):
         hilite = CodeHiliteExtension(linenums=False, css_class='highlight')
         extras = ExtraExtension()
-        markdown_content = markdown(abridged_content, extensions=[hilite, extras])
+        markdown_content = markdown(content, extensions=[hilite, extras])
         oembed_content = parse_html(
             markdown_content,
             oembed_providers,
             urlize_all=True,
             maxwidth=app.config['SITE_WIDTH'])
         return Markup(oembed_content)
-
 
     def save(self, *args, **kwargs):
         """
@@ -141,11 +134,16 @@ class Comment(BaseModel):
     class Meta:
         order_by =('timestamp',)
 
+    # @property
+    # def get_id(self):
+    #     print(self.id)
+
+
     @property
     def html_content(self):
         """
         Generate HTML version of markdown-formatted blog entry
-        and convert media URLS into embedded players/images.
+        and convert media URLs into embedded players/images.
         """
         hilite = CodeHiliteExtension(linenums=False, css_class='highlight')
         extras = ExtraExtension()

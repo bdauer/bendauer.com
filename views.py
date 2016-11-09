@@ -50,9 +50,8 @@ def index():
 
     return render_template('index.html', entry=entry)
 
-@app.route('/')
+@app.route('/about')
 def about():
-
     return render_template('about.html')
 
 @app.route('/blog/')

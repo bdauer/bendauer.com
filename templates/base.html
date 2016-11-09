@@ -12,7 +12,6 @@
     <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/gridism.css')}}" />
     {% block extra_head %}{% endblock %}
     {% block extra_scripts %}{% endblock %}
-
   </head>
 
   <body>
@@ -43,7 +42,7 @@
 
           <ul>
               <li><a href="{{ url_for('index') }}">Home</a></li>
-              <li><a href="{{ url_for('blog') }}">About</a></li>
+              <li><a href="{{ url_for('about') }}">About</a></li>
               <li id="last-navlink"><a href="{{ url_for('blog') }}">Blog</a></li>
 
             {% block extra_header %}{% endblock %}
