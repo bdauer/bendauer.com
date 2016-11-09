@@ -1,5 +1,6 @@
 import functools
 import urllib
+import hashlib
 
 from flask import (Flask, abort, flash, redirect, render_template, request,
                    session, url_for, Response)
@@ -23,7 +24,10 @@ def login_required(fn):
 def login():
     next_url = request.args.get('next') or request.form.get('next')
     if request.method == 'POST' and request.form.get('password'):
-        password = request.form.get('password')
+        h = hashlib.sha1()
+        h.update(request.form.get('password'))
+        password = h.digest()
+        # password = request.form.get('password')
         # TODO after adding a one-way hash, hash the user-submitted
         # password and compare to the hashed version.
         if password == app.config['ADMIN_PASSWORD']:
