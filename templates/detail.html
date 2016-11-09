@@ -1,7 +1,3 @@
-<!--
-This is an example of getting the converted html from the markdown.
--->
-
 {% extends "base.html" %}
 
 {% block title %}{{ entry.title }}{% endblock %}
@@ -32,6 +28,7 @@ This is an example of getting the converted html from the markdown.
 
 
     {% for comment in entry.comments %}
+    <a name="comments"></a>
     <div class="comment">
         <p>{{comment.html_content }}</p>
         {% if comment.website %}
@@ -42,11 +39,6 @@ This is an example of getting the converted html from the markdown.
     </div>
     {% endfor %}
 
-    {% if show_preview %}
-    <!-- need to fix this? -->
-        <p>This is a preview</p>
-        <p>{{ comment.html_content }}</p>
-    {% endif %}
 
 <div>
     <!-- action="{{ url_for('detail', slug=entry.slug)}}" -->

@@ -50,6 +50,23 @@ class Entry(BaseModel):
         return Markup(oembed_content)
 
 
+    @property
+    def sliced_html_content(self):
+        """
+        Same at html_content, but provides only the first several words.
+        """
+        abridged_content = " ".join(self.content.split(" ")[0:75])
+        hilite = CodeHiliteExtension(linenums=False, css_class='highlight')
+        extras = ExtraExtension()
+        markdown_content = markdown(abridged_content, extensions=[hilite, extras])
+        oembed_content = parse_html(
+            markdown_content,
+            oembed_providers,
+            urlize_all=True,
+            maxwidth=app.config['SITE_WIDTH'])
+        return Markup(oembed_content)
+
+
     def save(self, *args, **kwargs):
         """
         Generate URL version of entry title.
