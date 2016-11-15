@@ -19,7 +19,7 @@
     <div class="blog-entry">{{ entry.sliced_html_content}}
         <br />
 
-        <p id="timestamp"><a href ="http://www.bendauer.com"><span class="commenter">Ben</span></a> at {{ entry.timestamp.strftime('%m/%d/%Y at %I:%M%p') }}</p>
+        <p id="timestamp"><a href ="http://bendauer.com"><span class="commenter">Ben</span></a> at {{ entry.timestamp.strftime('%m/%d/%Y at %I:%M%p') }}</p>
         <h2><a href="{% if entry.published %}{{ url_for('detail', slug=entry.slug) }}{% else %}{{ url_for('edit', slug=entry.slug) }}{% endif %}">continue reading</a></h2>
     </div>
     <br />
