@@ -24,5 +24,5 @@ database = db.database
 # Used as list for micawber
 oembed_providers = bootstrap_basic(OEmbedCache())
 
-
-# consider moving to a controller OR MOVE ALL OF THIS TO VIEWS
+if __name__ == '__main__':
+    app.run(debug=False)
