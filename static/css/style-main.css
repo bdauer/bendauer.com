@@ -121,6 +121,10 @@ p#timestamp {
     border-radius: 5px;
     margin: 5px;
 }
+.blog-entry>p>a {
+    font-weight: bold;
+}
+
 .comment {
         padding: 10px;
         border-radius: 5px;
