@@ -18,8 +18,19 @@ def format_email(comments):
     middle = ""
 
     for comment in comments:
-        middle += format_comment(comment.name, comment.content, comment.timestamp, entry.title)
+        middle += format_comment(comment.name, comment.content,\
+                                 comment.timestamp, comment.entry.title)
 
+    end = "_____"
+
+    return start + middle + end
+
+
+def format_subject(subject):
+    """
+    Returns a subject line formatted for smtp, for the comments email.
+    """
+    return "Subject: {0}".format(subject)
 
 def format_comment(name, content, timestamp, entry):
     """
@@ -43,7 +54,8 @@ def get_timeframe(comments):
     Return a tuple containing the earliest and latest timestamps
     of the comments in the list in a readable format.
     """
-    for comment in comments:
-        comment_times.append(comment.timestamp)
-    return(min(comment_times).strftime('%m/%d/%Y at %I:%M%p'),\
-           max(comment_times).strftime('%m/%d/%Y at %I:%M%p')
+    comment_times = [comment.timestamp for comment in comments]
+    # for comment in comments:
+    #     comment_times.append(comment.timestamp)
+    return (min(comment_times).strftime('%m/%d/%Y at %I:%M%p'),\
+           max(comment_times).strftime('%m/%d/%Y at %I:%M%p'))

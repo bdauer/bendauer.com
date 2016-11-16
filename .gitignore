@@ -67,3 +67,7 @@ target/
 peewee.db
 blog.db
 email_settings.py
+
+# pickle
+
+*.p

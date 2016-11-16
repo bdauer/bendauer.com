@@ -15,7 +15,6 @@ def send_email_via_smtp(from_email, from_password, to_email,
     smtp_object.quit()
 
 
-
 def create_smtp_object(from_email, from_password, smtp_host, port):
     """
     Connects to a provided SMTP host using TLS or SSL encryption,
@@ -24,6 +23,8 @@ def create_smtp_object(from_email, from_password, smtp_host, port):
     """
     if port == 587:
         using_TLS = True
+    else:
+        using_TLS = False
 
     if using_TLS:
         smtp_object = smtplib.SMTP(smtp_host, port)
@@ -43,7 +44,6 @@ def send_email(smtp_object, from_email, to_email, contents):
     If there are multiple recipients, to_email should be a list.
     """
     smtp_object.sendmail(from_email, to_email, contents)
-    smtp_object.quit()
 
 if __name__ == '__main__':
     send_email_via_smtp(from_email, from_password, to_email,

@@ -10,7 +10,7 @@ from peewee import *
 from app import app, database, db
 from models import Entry, Comment, FTSEntry
 from settings import ADMIN_PASSWORD
-from email_functions.format_email import format_comment
+from email_functions.email_comments_interface import run_email_update
 
 def login_required(fn):
     @functools.wraps(fn)
@@ -138,6 +138,8 @@ def detail(slug):
         # else:
         with database.atomic():
             comment.save()
+            run_email_update(comment)
+
 
             # flash('comment saved successfully.', 'success')
         return redirect(url_for('detail', slug=entry.slug))

@@ -1,7 +1,7 @@
-from email_functions.email_settings import *
-from email_functions.format_email import *
-from email_functions.send_email import *
-from email_functions.modify_list import *
+from email_settings import *
+from format_email import *
+from send_email import *
+from modify_list import *
 
 def add_to_recent_comments(comment):
     """
@@ -16,7 +16,13 @@ def check_recent_comments_length(comments_length):
     Return a boolean value.
     """
 
-    if length == max_comments:
+    if comments_length >= max_comments:
         return True
     else:
         return False
+
+def get_recent_comments(file_name):
+    """
+    Return the recent_comments list.
+    """
+    return get_list(file_name)
