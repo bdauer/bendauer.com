@@ -17,13 +17,13 @@ def get_list(file_name):
         current_list = pickle.load(f)
     return current_list
 
-def update_list(new_item):
+def update_list(new_item, file_name):
     """
     Update the stored list.
     Return the length of the updated list.
     The length is useful for triggering events.
     """
-    current_list = get_list()
+    current_list = get_list(file_name)
     current_list.append(new_item)
     overwrite_list(current_list, file_name)
 
