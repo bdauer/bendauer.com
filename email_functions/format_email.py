@@ -1,3 +1,5 @@
+import datetime
+
 def format_email(comments):
     """
     Return a formatted email

@@ -1,17 +1,30 @@
 import cpickle as pickle
 
-def add_to_list(recent_comments, count):
-    with open('recent_comments.p', 'wb+') as f:
-        pickle.dump(count, f)
-        pickle.dump(recent_comments, f)
+file_name = 'recent_comments.p'
 
-def get_count_and_list():
-    with open('recent_comments.p', 'rb') as f:
-        count = pickle.load(f)
-        recent_comments = pickle.load(f)
-    return (count, recent_comments)
+def overwrite_list(new_list, file_name):
+    """
+    Overwrite the currently stored list with a new one.
+    """
+    with open(file_name, 'wb+') as f:
+        pickle.dump(new_list, f)
 
-def get_count():
-    with open('recent_comments.p', 'rb') as f:
-        count = pickle.load(f)
-    return count
+def get_list(file_name):
+    """
+    Unpickle and return the stored list.
+    """
+    with open(file_name, 'rb+') as f:
+        current_list = pickle.load(f)
+    return current_list
+
+def update_list(new_item):
+    """
+    Update the stored list.
+    Return the length of the updated list.
+    The length is useful for triggering events.
+    """
+    current_list = get_list()
+    current_list.append(new_item)
+    overwrite_list(current_list, file_name)
+
+    return len(current_list) + 1
