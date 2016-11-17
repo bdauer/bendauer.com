@@ -16,32 +16,45 @@ def run_email_update(comment):
     """
     recent_comments = add_to_recent_comments(comment)
 
-    if len(recent_comments) >= max_comments:
-        formatted_subject, formatted_email = \
-        _build_new_comments_email(recent_comments)
-
-        send_email_via_smtp(from_email, from_password, to_email_for_comments,\
-                            formatted_subject, formatted_email, smtp_host, port)
-
-        reset_comments_list(comments_file)
+    if _comments_threshold_met(max_comments, recent_comments):
+        _send_email_and_reset_recent_comments_list(recent_comments)
 
 
 def send_scheduled_email(comments_file):
     """
+    Checks if there are any new comments.
+    If there are, sends an email.
+
     Used for cronjob.
-    Sends an email containing the recent comments
-    if there are any.
     """
     recent_comments = get_recent_comments(comments_file)
 
-    if len(recent_comments) >= 1:
-        formatted_subject, formatted_email = \
-        _build_new_comments_email(recent_comments)
+    if _comments_threshold_met(1, recent_comments):
+        _send_email_and_reset_recent_comments_list(recent_comments)
 
-        send_email_via_smtp(from_email, from_password, to_email_for_comments,\
-                            formatted_subject, formatted_email, smtp_host, port)
 
-        reset_comments_list(comments_file)
+def _comments_threshold_met(threshold, recent_comments):
+    """
+    Returns true if the comments threshold is met,
+    otherwise returns false.
+    """
+    if len(recent_comments) >= threshold:
+        return True
+    else:
+        return False
+
+
+def _send_email_and_reset_recent_comments_list(recent_comments):
+    """
+    Sends an email and resets the recent_comments list.
+    """
+    formatted_subject, formatted_email = \
+    _build_new_comments_email(recent_comments)
+
+    send_email_via_smtp(from_email, from_password, to_email_for_comments,\
+                        formatted_subject, formatted_email, smtp_host, port)
+
+    reset_comments_list(comments_file)
 
 
 def _build_new_comments_email(comments):
