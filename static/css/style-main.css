@@ -6,10 +6,11 @@ body {
 
 a {
     text-decoration: none;
-    color: black;
+    color: #444;
+    font-weight: bold;
 }
 a:hover {
-    color: #424242 !important;
+    color: #666 !important;
     /*text-decoration:underline;*/
 }
 li {
@@ -79,6 +80,7 @@ li#last-navlink {
 div#nav ul li a {
     display: block;
     font-weight: bold;
+    color: black;
 }
 
 hr#line-under-navbar {
@@ -101,6 +103,7 @@ div#site-content-container {
 
 a#blog-title {
     text-decoration: none;
+    color: black;
     font-size: 20px;
     font-weight: bolder;
     margin-bottom: none;
@@ -207,10 +210,13 @@ span.commenter {
     text-indent: 0px;
     font-size: 12px;
 }
-#left-sidebar li{
+#left-sidebar li {
     list-style: none;
     text-decoration: none;
     font-size: 12px;
+}
+#left-sidebar a {
+    color: black;
 }
 
 .pager {
