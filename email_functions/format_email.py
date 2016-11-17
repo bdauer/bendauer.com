@@ -1,8 +1,9 @@
 import datetime
 
-def format_email(comments):
+def format_email(comments, subject):
     """
-    Return a formatted email
+    Return the formatted subject line, and
+    a formatted email
     containing a series of formatted comments
     and the range of time during which they were added.
 
@@ -10,6 +11,8 @@ def format_email(comments):
     Comments -- a list of comment objects
     representing comment entries in the database.
     """
+
+    formatted_subject = format_subject(subject)
     start_range, end_range = get_timeframe(comments)
 
     start = "The following comments arrived between {0} and {1}.\n\n"\
@@ -23,7 +26,7 @@ def format_email(comments):
 
     end = "_____"
 
-    return start + middle + end
+    return (formatted_subject, start + middle + end)
 
 
 def format_subject(subject):

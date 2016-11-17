@@ -6,7 +6,7 @@ from modify_list import *
 def add_to_recent_comments(comment):
     """
     add a comment to the recent_comments list.
-    Return the length.
+    Return the  recent_comments list.
     """
     return update_list(comment, 'recent_comments.p')
 

@@ -2,7 +2,7 @@ from modify_comments import (add_to_recent_comments, get_recent_comments,
                              check_recent_comments_length, reset_comments_list)
 
 from email_settings import (from_email, from_password, smtp_host, port,
-                            comments_file, to_email_for_comments)
+                            comments_file, to_email_for_comments, max_comments)
 
 from send_email import send_email_via_smtp
 
@@ -14,12 +14,9 @@ def run_email_update(comment):
     Checks if the new comments queue has reached its threshold.
     If it has, sends an email.
     """
-    updated_comments_length = add_to_recent_comments(comment)
-    is_maxed = check_recent_comments_length(updated_comments_length)
+    recent_comments = add_to_recent_comments(comment)
 
-    if is_maxed:
-        recent_comments = get_recent_comments(comments_file)
-
+    if len(recent_comments) >= max_comments:
         formatted_subject, formatted_email = \
         _build_new_comments_email(recent_comments)
 
@@ -32,8 +29,7 @@ def run_email_update(comment):
 def send_scheduled_email(comments_file):
     """
     Used for cronjob.
-    Sends an email
-    containing the recent comments
+    Sends an email containing the recent comments
     if there are any.
     """
     recent_comments = get_recent_comments(comments_file)
@@ -47,12 +43,13 @@ def send_scheduled_email(comments_file):
 
         reset_comments_list(comments_file)
 
+
 def _build_new_comments_email(comments):
     """
     Return the fields that need to be generated for sending a comments email.
     """
-    formatted_subject = format_subject("New comments at bendauer.com")
-    formatted_email = format_email(comments)
+    subject = "New comments at bendauer.com"
+    formatted_subject, formatted_email = format_email(comments, subject)
 
     return (formatted_subject, formatted_email)
 
