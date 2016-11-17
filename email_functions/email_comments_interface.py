@@ -18,8 +18,10 @@ def run_email_update(comment):
     is_maxed = check_recent_comments_length(updated_comments_length)
 
     if is_maxed:
-        comments, formatted_subject, formatted_email = \
-        _build_new_comments_email()
+        recent_comments = get_recent_comments(comments_file)
+
+        formatted_subject, formatted_email = \
+        _build_new_comments_email(recent_comments)
 
         send_email_via_smtp(from_email, from_password, to_email_for_comments,\
                             formatted_subject, formatted_email, smtp_host, port)
@@ -37,23 +39,22 @@ def send_scheduled_email(comments_file):
     recent_comments = get_recent_comments(comments_file)
 
     if len(recent_comments) >= 1:
-        comments, formatted_subject, formatted_email = \
-        _build_new_comments_email()
+        formatted_subject, formatted_email = \
+        _build_new_comments_email(recent_comments)
 
         send_email_via_smtp(from_email, from_password, to_email_for_comments,\
                             formatted_subject, formatted_email, smtp_host, port)
 
         reset_comments_list(comments_file)
 
-def _build_new_comments_email():
+def _build_new_comments_email(comments):
     """
     Return the fields that need to be generated for sending a comments email.
     """
-    comments = get_recent_comments(comments_file)
-    formatted_email = format_email(comments)
     formatted_subject = format_subject("New comments at bendauer.com")
+    formatted_email = format_email(comments)
 
-    return (comments, formatted_subject, formatted_email)
+    return (formatted_subject, formatted_email)
 
 if __name__ == "__main__":
     send_scheduled_email(comments_file)
