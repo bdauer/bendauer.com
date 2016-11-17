@@ -1,15 +1,12 @@
-from email_settings import *
-from format_email import *
-from send_email import *
-from modify_list import *
+from modify_list import get_list, update_list, overwrite_list
 
 
-def add_to_recent_comments(comment):
+def add_to_recent_comments(comment, file_name):
     """
     add a comment to the recent_comments list.
     Return the  recent_comments list.
     """
-    return update_list(comment, 'recent_comments.p')
+    return update_list(comment, file_name)
 
 
 def check_recent_comments_length(comments_length):
@@ -31,4 +28,7 @@ def get_recent_comments(file_name):
 
 
 def reset_comments_list(file_name):
+    """
+    Setst comments_list to an empty list.
+    """
     overwrite_list(list(), file_name)

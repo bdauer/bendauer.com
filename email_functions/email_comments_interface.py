@@ -5,7 +5,6 @@ from email_settings import (from_email, from_password, smtp_host, port,
                             comments_file, to_email_for_comments, max_comments)
 
 from send_email import send_email_via_smtp
-
 from format_email import format_email, format_subject
 
 
@@ -14,7 +13,7 @@ def run_email_update(comment):
     Checks if the new comments queue has reached its threshold.
     If it has, sends an email.
     """
-    recent_comments = add_to_recent_comments(comment)
+    recent_comments = add_to_recent_comments(comment, comments_file)
 
     if _comments_threshold_met(max_comments, recent_comments):
         _send_email_and_reset_recent_comments_list(recent_comments)
