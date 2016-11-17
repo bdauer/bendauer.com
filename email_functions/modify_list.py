@@ -16,9 +16,11 @@ def get_list(file_name):
         with open(file_name, 'r+') as f:
             current_list = pickle.load(f)
     except IOError:
+        print("There was an IOError")
         with open(file_name, 'w') as f:
             current_list = []
     except EOFError:
+        print("There was an EOFError")
         current_list = []
 
     return current_list

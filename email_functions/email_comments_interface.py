@@ -27,10 +27,15 @@ def send_scheduled_email(comments_file):
 
     Used for cronjob.
     """
+    print("It began running.")
     recent_comments = get_recent_comments(comments_file)
+    print("It accessed recent_comments")
+    print (recent_comments)
 
     if _comments_threshold_met(1, recent_comments):
+        print("The threshold was met")
         _send_email_and_reset_recent_comments_list(recent_comments)
+        print("Send email ran")
 
 
 def _comments_threshold_met(threshold, recent_comments):
@@ -65,6 +70,3 @@ def _build_new_comments_email(comments):
     formatted_subject, formatted_email = format_email(comments, subject)
 
     return (formatted_subject, formatted_email)
-
-if __name__ == "__main__":
-    send_scheduled_email(comments_file)
