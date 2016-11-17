@@ -26,3 +26,6 @@ def get_recent_comments(file_name):
     Return the recent_comments list.
     """
     return get_list(file_name)
+
+def reset_comments_list(file_name):
+    overwrite_list(list(), file_name)
